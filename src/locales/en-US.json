@@ -118,6 +118,7 @@
 	"CSP_GLOBAL_CHECK_MAYBE_WEAK_CSP":"One or more CSP directives detected seems to be vulnerable",
 	"CSP_GLOBAL_CHECK_WEAK_CSP":"One or more CSP directives detected are vulnerable",
 	"CSP_GLOBAL_CHECK_INVALID_CSP":"Failed to parse CSP, it may not be valid.",
+	"CSP_GLOBAL_CHECK_UNRESOLVED_CSP":"A Content-Security-Policy assignment was detected but its value cannot be resolved statically. Manual review is required.",
 	"HTTP_RESOURCES_WITH_NODE_INTEGRATION_GLOBAL_CHECK":"The nodeIntegration flag is enabled for the application, but some resources are loaded over an unencrypted connection.",
 	"LIMIT_NAVIGATION_GLOBAL_CHECK_NONE_FOUND":"Missing navigation limits using .on new-window and will-navigate events",
 	"LIMIT_NAVIGATION_GLOBAL_CHECK_NEW_WINDOW_MISSING":"Missing .on new-window navigation limit",

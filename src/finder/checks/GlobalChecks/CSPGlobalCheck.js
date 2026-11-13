@@ -9,6 +9,7 @@ export default class CSPGlobalCheck {
     this.description = {  NO_CSP: __("CSP_GLOBAL_CHECK_NO_CSP"),
       MAYBE_WEAK_CSP: __("CSP_GLOBAL_CHECK_MAYBE_WEAK_CSP"),
       WEAK_CSP: __("CSP_GLOBAL_CHECK_WEAK_CSP"),
+      UNRESOLVED_CSP: __("CSP_GLOBAL_CHECK_UNRESOLVED_CSP"),
       INVALID_CSP: __("CSP_GLOBAL_CHECK_INVALID_CSP") };
     this.depends = ["CSPJSCheck", "CSPHTMLCheck"];
     this.shortenedURL = "https://git.io/JeuMe";
@@ -25,6 +26,12 @@ export default class CSPGlobalCheck {
       for (var cspIssue of issues) {
         // checks visibility before going forward
         if (Array.isArray(cspIssue.visibility.excludesGlobal) && !cspIssue.visibility.excludesGlobal.includes(this.id)) {
+          // A CSP assignment was detected but its value or header name cannot be resolved statically
+          // (e.g. dynamic values, branches). Flag it for manual review instead of assuming there is no CSP.
+          if (cspIssue.properties && cspIssue.properties.cspUnresolved) {
+            returnableIssues.push({ file: cspIssue.file, location: cspIssue.location, id: this.id, description: this.description.UNRESOLVED_CSP, shortenedURL: this.shortenedURL, severity: attributes.severity.MEDIUM, confidence: attributes.confidence.TENTATIVE, manualReview: true });
+            continue;
+          }
           var confidence = 0; 
           var findings;
           try {
